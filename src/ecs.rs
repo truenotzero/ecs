@@ -141,18 +141,18 @@ macro_rules! component {
     (struct $name:ident { $( #[slot($s:literal)] $field_name:ident: $field_type:ty, )+ }) => {
         // implement struct
         #[derive(Default)]
-        struct $name {
-        $( $field_name: $field_type ),+
+        pub struct $name {
+        $( pub $field_name: $field_type ),+
         }
 
         $crate::paste::paste! {
         // create Ref/RefMut glue
-        struct [< $name Ref >]<'a> {
-        $( $field_name: &'a $field_type ),+
+        pub struct [< $name Ref >]<'a> {
+        $( pub $field_name: &'a $field_type ),+
         }
 
-        struct [< $name RefMut >]<'a> {
-        $( $field_name: &'a mut $field_type ),+
+        pub struct [< $name RefMut >]<'a> {
+        $( pub $field_name: &'a mut $field_type ),+
         }
 
         // implement From(tuple) for glue types (iterator support)
@@ -184,7 +184,7 @@ macro_rules! component {
 
         // implement SoA
         #[derive(Default)]
-        struct [< $name Manager >] {
+        pub struct [< $name Manager >] {
         $( $field_name: std::collections::HashMap<$crate::ecs::Id, $field_type> ),+
         }
 
