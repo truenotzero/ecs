@@ -1,4 +1,4 @@
-extern crate paste;
-extern crate itertools;
+pub extern crate paste;
+pub extern crate itertools;
 
 pub mod ecs;
